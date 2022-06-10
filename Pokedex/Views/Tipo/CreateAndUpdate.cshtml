@@ -1,0 +1,42 @@
+﻿@model Application.ViewModels.TipoViewModel
+
+@{
+    bool edit = Model.Id == 0 ? false : true;
+}
+
+<div></div>
+<div class=""></div>
+
+
+
+<div class="container-fluid">
+
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-dark text-ligth">
+                <h4 class="text-white">@(edit ? $"Editando el Tipo: {Model.TypeName}" : "Crear un nuevo Tipo") </h4>
+            </div>
+            <div class="card-body">
+                
+                <form method="post" asp-controller="Tipo" asp-action="@(edit ? "Edit" : "Create")">
+
+                    <div class="mb-3">
+                        <label asp-for="TypeName" class="control-label h3">Nombre del tipo: </label>
+                        <input type="text" asp-for="TypeName" class="form-control" />
+                        <span asp-validation-for="TypeName" class="text-danger"></span>
+
+                    </div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Guardar </button>
+                        <a asp-controller="Tipo" asp-action="Index" class="btn btn-warning btn-lg">Volver atras</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Application.ViewModels.RegionViewModel>
+
+
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["mensaje"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
+}
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <p class="display-4"> Lista de Regiones</p>
+    </div>
+    <div class="col-sm-6">
+        <a class="btn btn-outline-danger d-block" asp-action="Create" asp-controller="Region"> Agregar nueva Region</a>
+    </div>
+</div>
+
+<div class="row mt-5 w-100">
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped table-hover  ">
+            <thead class="bg-dark ">
+
+                <tr class="text-white fw-bold h5 ">
+                    <td class="col"> @Html.DisplayNameFor(m => m.Name)</td>
+
+                    <td class="col"> Acciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="h3">@item.Name</td>
+
+                        <td>
+                            <div class="">
+                                <a asp-controller="Region" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-lg">Editar</a>
+                                <a asp-controller="Region" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-lg ">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            <tbody />
+        </table>
+    }
+    else
+    {
+        <p>No existen registros</p>
+    }
+
+</div>
+

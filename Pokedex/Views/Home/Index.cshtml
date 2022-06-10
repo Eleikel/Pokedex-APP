@@ -1,0 +1,110 @@
+﻿@using Application.ViewModels
+@using Database.Models
+@model List<PokemonViewModel>
+
+
+<div class="container-fluid">
+
+    <div class="row justify-content-end">
+
+        @*  COL 1*@
+        <div class="col">
+
+            <form asp-action="Index" class="form-inline my-2 my-lg-0" asp-controller="Home" method="get">
+                <div class="form-inline d-flex flex-row">
+                    <label class="h3 buscar" for="Name">Buscar: </label>
+                    <input class="form-control mr-sm-2 searchTerm" placeholder="Buscar por nombre de Pokemon" type="search" name="Name" id="Name" aria-label="Search" />
+                    @*<input type="submit" name="Name" value="Buscar" id="Name" class="btn btn-primary" />*@
+                    <button class="btn btn-info my-2 my-sm-0 searchButton boton" name="Name" value="Buscar" id="Name" type="submit">Search</button>
+
+                    <a class="btn btn-warning boton-2" asp-action="Index"> Ver Todos</a>
+                </div>
+            </form>
+
+        </div>
+
+
+
+        @*  COL 2*@
+
+
+        <div class="col-5">
+
+            <div class="card shadow-sm w-auto">
+                <div class="card-header  text-light text-center titulo-card">
+                    <h4>Filtrar Por Regiones</h4>
+                </div>
+                <div class="card-body">
+
+
+                    <form method="post" asp-controller="Home" asp-action="Index">
+
+                        <div class="mb-3 d-inline-flex">
+                            <div class="form-check">
+                                <input class="form-check-input" value="null" type="radio" name="RegionId" id="region-all" />
+                                <label class="form-check-label" for="region-all">Todas</label>
+                            </div>
+                        </div>
+
+                        @foreach (RegionViewModel region in ViewBag.Regions)
+                        {
+                            <div class="mb-3 d-inline-flex">
+                                <div class="form-check">
+                                    <div class="regions">
+                                        <input class="form-check-input" value="@region.Id" type="radio" name="RegionId" id="region-@region.Id" />
+                                        <label class="form-check-label " for="region-@region.Id">@region.Name</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+
+                        <button type="submit" class="btn btn-primary d-block filtrar">Filtrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-6">
+            <h1 class="titulo"> Lista de Pokemones</h1>
+        </div>
+    </div>
+
+
+
+    <div class="row mt-5">
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <h2>No se encontro Pokemones</h2>
+        }
+        else
+        {
+            @foreach (PokemonViewModel item in Model)
+            {
+                <div class="col-4">
+                    <div class="card shadow-lg card-size mb-5">
+                        <img class="bd-placeholder-img card-img-top img-size" src="@item.Foto" />
+                        <div class="card-body info-color">
+                            <h2 class="text-muted text-center">@item.Name</h2>
+                            <div class="flex d-inline-flex">
+
+                                <h3><span class="badge rounded-pill text-bg-danger">  @item.TipoPrimary.TypeName</span></h3>
+                                <h3 class=mx-lg-2><span class="badge rounded-pill text-bg-warning">@item.TipoSecondary.TypeName</span></h3>
+                            </div>
+
+                            <h3 class="card-text">Region:<span class="badge rounded-pill text-bg-secondary"> @item.Region.Name</span></h3>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+</div>

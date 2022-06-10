@@ -1,0 +1,71 @@
+﻿@namespace Database.Models
+@model Application.ViewModels.PokemonViewModel
+
+@{
+    bool edit = Model.Id == 0 ? false : true;
+
+}
+
+<div class="container-fluid">
+
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-dark text-ligth">
+                <h4 class="text-white">@(edit ? $"Editando el Pokemon {Model.Name}" : "Crear  Pokemon") </h4>
+            </div>
+            <div class="card-body">
+
+
+                <form method="post" asp-controller="Pokemon" asp-action="@(edit ? "Edit" : "Create")">
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="control-label h4">Nombre del Pokemon: </label>
+                        <input type="text" asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Foto" class="control-label h4">Foto del Pokemon: </label>
+                        <input type="text" asp-for="Foto" class="form-control" />
+                        <span asp-validation-for="Foto" class="text-danger"></span>
+                    </div>
+
+                    @*Combobox*@
+                    <div class="mb-3">
+
+
+                        <label class="form-label h4" asp-for="RegionId">Seleccione la Region:</label>
+                        <select class="form-select" asp-for="RegionId" asp-items=@ViewBag.Regiones name="RegionId" id="RegionId"> </select>
+                        <span asp-validation-for="RegionId" class="text-danger"></span>
+
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label class="form-label h4" asp-for="PrimaryTypeId">Seleccione el tipo primario:</label>
+                        <select class="form-select" asp-for="PrimaryTypeId" asp-items="@ViewBag.PrimaryType"> </select>
+                        <span asp-validation-for="PrimaryTypeId" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label class="form-label h4" asp-for="SecondaryTypeId">Seleccione el tipo secundario:</label>
+                        <select class="form-select" asp-for="SecondaryTypeId" asp-items=@ViewBag.SecondaryType id="SecondaryType">
+                        </select>
+
+                    </div>
+
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg">Guardar </button>
+                        <a asp-controller="Pokemon" asp-action="Index" class="btn btn-warning btn-lg">Volver atras</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

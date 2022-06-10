@@ -1,0 +1,32 @@
+﻿@model Application.ViewModels.TipoViewModel
+
+
+@{
+    ViewData["Title"] = "Eliminar Region";
+}
+
+
+<div class="row">
+
+    <div class="card w-50">
+        <div class="card-header bg-danger text-light">
+            <h4>¿Deseas Eliminar el tipo @Model.TypeName ?</h4>
+        </div>
+        <div class="card-body text-center w-100">
+
+            <form method="post" asp-controller="Tipo" asp-action="DeletePost">
+
+                <input type="hidden" asp-for="Id" />
+
+                <button type="submit" class="btn-primary btn-danger">Eliminar </button>
+                <a asp-controller="Region" asp-action="Index" class="btn btn-warning">Cancelar</a>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

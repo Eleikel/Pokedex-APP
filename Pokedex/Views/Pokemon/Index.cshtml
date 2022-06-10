@@ -1,0 +1,59 @@
+﻿@model List<Application.ViewModels.PokemonViewModel>
+
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <h1> Lista de Pokemones</h1>
+    </div>
+    <div class="col-6">
+        <a class="btn btn-outline-danger d-block" asp-action="Create" asp-controller="Pokemon"> Agregar Pokemon</a>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        @if (Model.Count() > 0)
+        {
+            @foreach (Application.ViewModels.PokemonViewModel item in Model)
+            {
+                <div class="col-sm-2 mt-5">
+                    <div class="card shadow-lg card-size">
+                        <img class="bd-placeholder-img card-img-top img-size" src="@item.Foto" />
+                        <div class="card-body info-color">
+                            <h2 class="text-muted text-center">@item.Name</h2>
+                            <div class="flex d-inline-flex">
+
+                                <h4><span class="badge rounded-pill text-bg-danger poke-tipo">  @item.TipoPrimary.TypeName</span></h4>
+                                <h4 class=mx-lg-2><span class="badge rounded-pill text-bg-warning poke-tipo">@item.TipoSecondary.TypeName</span></h4>
+                            </div>
+
+                            <h4 class="card-text">Region:<span class="badge rounded-pill text-bg-secondary poke-tipo"> @item.Region.Name</span></h4>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a asp-controller="Pokemon" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning ">Editar</a>
+                                    <a asp-controller="Pokemon" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger ">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        }
+        else
+        {
+            <p>No existen registros</p>
+        }
+
+
+
+
+    </div>
+
+</div>
